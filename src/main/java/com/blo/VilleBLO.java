@@ -11,5 +11,7 @@ public interface VilleBLO {
 	
 	public void ajoutVille(Ville ville);
 	
+	
+	
 }
 
