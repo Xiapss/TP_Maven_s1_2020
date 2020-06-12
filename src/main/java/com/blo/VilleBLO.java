@@ -9,9 +9,11 @@ public interface VilleBLO {
 	
 	public ArrayList<Ville> getInfoVilles(String param);
 	
-	public void ajoutVille(Ville ville);
+	public boolean ajoutVille(Ville ville);
 	
+	public boolean suppVille(String monParam);
 	
+	public boolean modifierVille(Ville ville);
 	
 }
 

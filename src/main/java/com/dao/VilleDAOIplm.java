@@ -45,7 +45,7 @@ public class VilleDAOIplm implements VilleDAO {
 	}
 	
 	public ArrayList<Ville> getInfoVilles(String param) {
-ArrayList<Ville> villes = new ArrayList<Ville>();
+		ArrayList<Ville> villes = new ArrayList<Ville>();
 		
 		String requete = "SELECT * FROM ville_france WHERE code_postal = "+param;
 		Connection con = ConfigBDD.getConnection();
@@ -72,9 +72,75 @@ ArrayList<Ville> villes = new ArrayList<Ville>();
 		}
 	}
 	
-	public void ajoutVille(Ville ville) {
+	public boolean ajoutVille(Ville ville) {
+		System.out.println("Nom de la ville a insérer : "+ville.getNomCommune());
+		String requete = "INSERT INTO ville_france VALUES('"+ville.getCodeCommune()+"','"+ville.getNomCommune()+"','"+ville.getCodePostal()
+		+"','"+ville.getLibellAacheminement()+"','"+ville.getLigne_5()+"','"+ville.getLatitude()+"','"+ville.getLongitude()+"')";	
+		System.out.println(requete);
+		
+		Connection con = ConfigBDD.getConnection();
+		
+		try {
+			Statement stmt = con.createStatement();
+			if(stmt.executeUpdate(requete)==1) {
+				return true;
+			}else {
+				return false;
+			}
+		}catch(SQLException e) {
+			System.out.println("Une erreur s'est produite lors de l'insertion.");
+			return false;
+		}
+		
 		
 	}
+	
+	public boolean suppVille(String monParam) {
+		System.out.println("Suppression de la ville avec le code : "+ monParam);
+		String requete = "DELETE FROM ville_france WHERE code_commune_insee = '"+monParam+"'";
+		System.out.println(requete);
+		
+		Connection con = ConfigBDD.getConnection();
+		
+		try {
+			Statement stmt = con.createStatement();
+			if(stmt.executeUpdate(requete)==1) {
+				return true;
+				
+			}else {
+				return false;
+			}
+		}catch(SQLException e) {
+			System.out.println("Une erreur s'est produite lors de la suppression.");
+			return false;
+		}
+	}
+	
+	
+	public boolean modifierVille(Ville ville) {
+        try {
+            Connection con = ConfigBDD.getConnection();
+            Statement stmt = con.createStatement();
+            String requete ="UPDATE ville_france SET Nom_commune='" + ville.getNomCommune() + "', Code_postal='"
+                    + ville.getCodePostal() + "', Libelle_acheminement='" + ville.getLibellAacheminement()
+                    + "', Ligne_5 = '" + ville.getLigne_5() + "', Latitude='" + ville.getLatitude() + "', Longitude='"
+                    + ville.getLongitude() + "'  WHERE Code_commune_INSEE='" + ville.getCodeCommune() + "'";
+            
+            System.out.println(requete);
+            if(stmt.executeUpdate(requete)==1) {
+            	return true;
+            }else {
+            	return false;
+            }
+            
+ 
+
+        } catch (SQLException e) {
+        	
+            e.printStackTrace();
+            return false;
+        }
+    }
 	
 	
 }

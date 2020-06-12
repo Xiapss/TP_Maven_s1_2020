@@ -39,8 +39,40 @@ class VilleController {
 	@ResponseBody
 	public void appelPost(@RequestBody Ville ville) {
 		System.out.println("Appel POST");
-		
-		villeBLOService.ajoutVille(ville);
+		//System.out.println(ville.getNomCommune());
+		if(villeBLOService.ajoutVille(ville)) {
+			System.out.println("ligne ajouté");
+		}else {
+			System.out.println("erreur lors de l'ajout de la ligne");
+		}
 		
 	}
+	
+	
+	
+	// Methode DELETE
+		@RequestMapping(value = "/ville", method = RequestMethod.DELETE)
+		@ResponseBody
+		public void appelDelte(@RequestParam(required = true, value = "codeCommune") String monParam) {
+			System.out.println("Appel DELETE");
+			System.out.println(monParam);
+			if(villeBLOService.suppVille(monParam)) {
+				System.out.println("ligne supprimée");
+			}else {
+				System.out.println("Impossible de supprimer la ligne");
+			}
+		}
+		
+		// Methode PUT
+		@RequestMapping(value = "/ville", method = RequestMethod.PUT)
+		@ResponseBody
+		public void appelPut(@RequestBody Ville ville) {
+			System.out.println("Appel PUT");
+			
+			if(villeBLOService.modifierVille(ville)) {
+				System.out.println("ligne modifiée");
+			}else {
+				System.out.println("Impossible de modifier la ligne");
+			}
+		}
 }

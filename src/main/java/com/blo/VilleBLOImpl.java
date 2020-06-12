@@ -28,7 +28,15 @@ public class VilleBLOImpl implements VilleBLO {
 		return villes;
 	}
 	
-	public void ajoutVille(Ville ville) {
-		
+	public boolean ajoutVille(Ville ville) {
+		return villeDAO.ajoutVille(ville);
+	}
+	
+	public boolean suppVille(String monParam) {
+		return villeDAO.suppVille(monParam);
+	}
+	
+	public boolean modifierVille(Ville ville) {
+		return villeDAO.modifierVille(ville);
 	}
 }
